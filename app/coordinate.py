@@ -1,29 +1,26 @@
-from app.exceoptions import IncorrectPlaceException
-
-current_position = []
-current_face_direction = ''
-new_face_direction = ''
-simulated_position = []
-face_directions = {'NORTH', 'EAST', 'SOUTH', 'WEST'}
-
-
-def coordinate_range():
-    return {
-        "square": {0, 1, 2, 3, 4}
-    }
+from app.validations import CoordinateValidations as cv
 
 
 class Coordinate:
+    current_face_direction = ''
+    _x=0
+    _y=0
 
-    def coordinate_validation(self, place):
-        if not place.strip().startswith('PLACE'):
-            raise IncorrectPlaceException
-        raise IncorrectPlaceException
+    def __str__(self):
+        return f'{self._x},{self._y},{self.current_face_direction}'
 
-    def place_robort(self, cmd):
-        if self.coordinate_validation(cmd):
-            return
-        print(cmd)
-        pass
+    def get_coordinate(self, place_cmd: str):
+        place_list = place_cmd.split(' ')[1].split(',')
+        return cv.position_destruction(place_list)
 
+    @cv.coordinate_validation_decorator
+    def place_to_coordinate(self, x: str, y: str, face: str):
+        cv.face_validate(face)
+        self._x = x
+        self._y = y
+        self.current_face_direction = face
 
+    @cv.coordinate_validation_decorator
+    def move_in_coordinate(self, x: str, y: str):
+        self._x += x
+        self._y += y
