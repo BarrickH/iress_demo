@@ -48,7 +48,7 @@ class CoordinateValidations:
 def place_validator_decorator(fn):
     def wrapper(self, *args, **kwargs):
         if not self.placed:
-            raise Exception(str('CMD place is missing'))
+            raise IncorrectPlaceException
         return fn(self, *args, **kwargs)
 
     return wrapper

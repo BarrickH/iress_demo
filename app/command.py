@@ -1,7 +1,7 @@
 from app.coordinate import Coordinate
 from app.validations import CoordinateValidations as cv
 from app.validations import place_validator_decorator
-from app.exceoptions import IncorrectPlaceException
+from app.exceoptions import IncorrectPlaceException, IncorrectCommandException
 
 
 class Command:
@@ -40,7 +40,7 @@ class Command:
             "REPORT": self.robot_report
         }
         if self.cmd_parts not in move_result_mapping.keys():
-            raise Exception(str('Unaccepted command'))
+            raise IncorrectCommandException
         else:
             return move_result_mapping.get(self.cmd_parts)()
 
