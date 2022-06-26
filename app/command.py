@@ -13,7 +13,7 @@ class Command:
         'WEST': {'x': -1},
     }
 
-    def __init__(self, cmd: str, ):
+    def __init__(self, cmd: str = '', ):
         self.placed = False
         self.cmd = cmd
         self.cmd_parts = None

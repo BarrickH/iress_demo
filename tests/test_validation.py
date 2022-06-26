@@ -3,7 +3,7 @@ from app.validations import CoordinateValidations
 from app.exceoptions import IncorrectPlaceException
 
 
-class CommandTest(unittest.TestCase):
+class ValidationTest(unittest.TestCase):
     def test_valid_place_command_validator(self):
         self.assertEqual(CoordinateValidations.place_cmd_validation('PLACE 0,0,NORTH'),'PLACE 0,0,NORTH')
         self.assertEqual(CoordinateValidations.place_cmd_validation('PLACE 0,0,SOUTH'),'PLACE 0,0,SOUTH')

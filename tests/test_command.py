@@ -5,7 +5,7 @@ from app.exceoptions import IncorrectPlaceException, IncorrectCommandException
 
 class CommandTest(unittest.TestCase):
     def setUp(self):
-        self.command = Command('')
+        self.command = Command(cmd='')
 
     def test_command_rotate_right(self):
         self.assertRaises(IncorrectPlaceException,self.command.execute_command,'RIGHT')
