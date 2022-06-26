@@ -3,8 +3,8 @@ from app.validations import CoordinateValidations as cv
 
 class Coordinate:
     current_face_direction = ''
-    _x=0
-    _y=0
+    _x = 0
+    _y = 0
 
     def __str__(self):
         return f'{self._x},{self._y},{self.current_face_direction}'

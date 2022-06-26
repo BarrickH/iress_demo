@@ -1,16 +1,14 @@
 import unittest
-from app.main import Robot
 from app.command import Command
 
 
 class CommandTest(unittest.TestCase):
     def setUp(self):
-        self.Robot_mock = Robot()
+        self.command = Command('')
         pass
 
     def tearDown(self):
-        del self.Robot_mock
+        del self.command
 
     def test_rotate_robot(self):
-        self.Command = Command(cmd='RIGHT')
-        self.assertEqual(self.Command.rotate_robot(),None)
+        self.assertEqual(self.command.execute_command('RIGHT'),None)

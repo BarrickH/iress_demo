@@ -5,15 +5,15 @@ from app.exceoptions import IncorrectPlaceException
 
 
 class Command:
-    _directions = ['west', 'north', 'east', 'south', 'west', 'north']
+    _directions = ['WEST', 'NORTH', 'EAST', 'SOUTH', 'WEST', 'NORTH']
     _move_mapping = {
-        'NORTH':{'y':1},
-        'EAST':{'x':1},
-        'SOUTH':{'y':-1},
-        'WEST':{'x':-1},
+        'NORTH': {'y': 1},
+        'EAST': {'x': 1},
+        'SOUTH': {'y': -1},
+        'WEST': {'x': -1},
     }
 
-    def __init__(self, cmd: str,):
+    def __init__(self, cmd: str, ):
         self.placed = False
         self.cmd = cmd
         self.cmd_parts = None
@@ -29,7 +29,7 @@ class Command:
         finally:
             return
 
-    def execute_command(self,cmd:str) -> None:
+    def execute_command(self, cmd: str) -> None:
         self.cmd = cmd.strip()
         self.cmd_parts = cmd.strip().split(' ')[0]
         move_result_mapping = {
@@ -46,14 +46,16 @@ class Command:
 
     def place_robot(self):
         place_cmd = cv.place_cmd_validation(self.cmd)
-        x,y,face = self.C.get_coordinate(place_cmd=place_cmd)
-        self.C.place_to_coordinate(x=x,y=y,face=face)
+        x, y, face = self.C.get_coordinate(place_cmd=place_cmd)
+        self.C.place_to_coordinate(x=x, y=y, face=face)
         self.placed = True
 
     @place_validator_decorator
-    def rotate_robot(self, turning:str):
-        index_step = 1 if turning == 'right' else -1
-        direction_index = self._directions[1:5].index(self.C.current_face_direction) + index_step
+    def rotate_robot(self):
+        index_step = 1 if self.cmd == 'RIGHT' else -1
+        # as _directions[1:5] removed the left most item, so need add back when do the index matching
+        add_back_one = 1
+        direction_index = self._directions[1:5].index(self.C.current_face_direction) + index_step + add_back_one
         self.C.current_face_direction = self._directions[direction_index]
 
     @place_validator_decorator
@@ -61,7 +63,7 @@ class Command:
         move_effect = self._move_mapping[self.C.current_face_direction]
         x = move_effect.get('x', 0)
         y = move_effect.get('y', 0)
-        self.C.move_in_coordinate(x=x,y=y)
+        self.C.move_in_coordinate(x=x, y=y)
 
     @place_validator_decorator
     def robot_report(self):

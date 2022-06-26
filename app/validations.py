@@ -1,6 +1,5 @@
 from app.exceoptions import IncorrectPlaceException, IncorrectCoordinateCommand
 import re
-import functools
 
 valid_cmd = {'PLACE','RIGHT', 'LEFT', 'MOVE', 'REPORT'}
 face_directions = {'NORTH', 'EAST', 'SOUTH', 'WEST'}
@@ -54,11 +53,3 @@ def place_validator_decorator(fn):
 
     return wrapper
 
-    # def coordinate_validation(self, coordinate):
-    #
-    #     x, y, face = self.position_destruction(coordinate)
-    #
-    #     if x not in square_coordinate_range or y not in square_coordinate_range:
-    #         raise IncorrectPlaceException
-    #     if face not in face_directions:
-    #         raise IncorrectCoordinateCommand
