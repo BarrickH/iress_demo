@@ -1,8 +1,11 @@
-from app.main import Robot
+from app.main import Command
 
 
 def main():
-    Robot().go('PLACE')
+    command = Command('')
+    while True:
+        cmd = input()
+        command.go(cmd)
 
 
 if __name__ == '__main__':

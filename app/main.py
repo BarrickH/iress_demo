@@ -1,18 +1,22 @@
 from app.command import Command
 from app.exceoptions import IncorrectPlaceException
+from app.coordinate import Coordinate
 
 
-class Robot:
+class Robot(Coordinate):
     def __init__(self):
         pass
 
-    def go(self, cmd: str) -> None:
+    def go(self, cmd: str,r) -> None:
         new_command = Command(cmd)
         try:
             new_command.execute_command()
         except IncorrectPlaceException:
-            pass
+            return
         else:
-            pass
+            return
         finally:
-            pass
+            return
+
+    def set_placed(self):
+        self.placed=True
