@@ -10,6 +10,13 @@ def get_file_lines(file_name):
         return [line.replace('\n', '') for line in lines]
 
 
+def write_file(cmd_list,file_name):
+    e2e_test_file = open(file_name, "w")
+    for c in cmd_list:
+        e2e_test_file.write(c + "\n")
+    e2e_test_file.close()
+
+
 class RunTest(unittest.TestCase):
     def setUp(self):
         self.command = Command('')
@@ -17,6 +24,9 @@ class RunTest(unittest.TestCase):
 
     @patch('sys.stdout', new_callable=StringIO)
     def test_run_1(self, mock_stdout):
+        cmd_list = ["REPORT","MOVE","RIGHT","PLACE 0,0,NORTH","REPORT","MOVE","REPORT","RIGHT","MOVE","REPORT","LEFT",
+                    "MOVE","REPORT"]
+        write_file(cmd_list, "e2e_test_1.txt")
         commands = get_file_lines('e2e_test_1.txt')
         for cmd in commands:
             self.command.go(cmd)
@@ -26,10 +36,7 @@ class RunTest(unittest.TestCase):
     def test_run_2(self, mock_stdout):
         cmd_list = ["PLACE 10,10,NORTH", "REPORT", "PLACE 4,4,NORTH", "MOVE", "REPORT", "RIGHT", "RIGHT", "MOVE",
                     "REPORT", ]
-        e2e_test_file = open("e2e_test_2.txt", "w")
-        for c in cmd_list:
-            e2e_test_file.write(c + "\n")
-        e2e_test_file.close()
+        write_file(cmd_list,"e2e_test_2.txt")
         commands = get_file_lines('e2e_test_2.txt')
         for cmd in commands:
             self.command.go(cmd)
